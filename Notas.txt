@@ -1,0 +1,2 @@
+12/10/2021
+    - En el import del modelo al esquema, se debe hacer referencia a la propiedad de exports en el archivo del esquema
