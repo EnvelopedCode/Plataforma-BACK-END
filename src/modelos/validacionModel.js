@@ -8,5 +8,5 @@ const cedulaSchema = new Schema({
   },
 });
 
-const validacionModel = mongoose.model("buscar", cedulaSchema);
-exports.validacionModel = validacionModel;
+const Model = mongoose.model("buscar", cedulaSchema);
+exports.validacionModel = Model;

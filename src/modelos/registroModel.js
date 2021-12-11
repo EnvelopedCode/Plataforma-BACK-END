@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const registroSchema = new Schema({
+
   cedula:{
     type: "string",
     required: true
@@ -43,6 +44,11 @@ const registroSchema = new Schema({
     required: true,
     unique: true
   }
+  // diaFacturacion: {
+  //   type: "string",
+  //   required: true
+  // }
+
 
 });
 
