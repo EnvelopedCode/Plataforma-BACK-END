@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { registroModel } = require("../../modelos/registroModel");
 const { usuariosModel } = require("../../modelos/usuariosModel");
 const validacionApi = Router();
 
@@ -9,24 +8,37 @@ validacionApi.post("/validacion", async function (req, res) {
     const { cedula } = req.body;
     console.warn("Entro a /validacion")
     console.log(cedula)
-    const c = await registroModel.findOne({ cedula }); //Busco cedula en servicios
+    const c = await usuariosModel.findOne({ cedula }); //Busco cedula en servicios
     console.log(c)
     
     console.log("pasó el busqueda------------------------");
-    // if (c) {
-    //   //
-    //   const s = await usuariosModel.findOne({ cedula });
-    //   if(s){
-    //     //redireccionamiento para login
-    //     return res.status(200).send({estado:"ok", msg:"cedula encontrada en usuariosModel" })
-    //   } else{
-    //     //redireccionamiento para el signup
-    //     console.log("no encontró la cedula en signup");
-    //     return res.status(200).send({estado:"error", msg:"cedula NO encontrada en usuariosModel" })
-    //   } 
-    // } else {
-    //   return res.status(401).send({ estado: "error", msg: "no encontrado en servicios" });
-    // }
+    if (c) { //Encuentra una cedula
+
+      if(c.estado === "1"){ //Cedula con contraseña
+
+        return res.status(200).send({
+          estado: "OK",
+          msg: "Enviando a login...",
+          url: "/Login",
+          cedula: c.cedula
+        })
+        
+      } else { //Cedula sin contraseña
+        
+        return res.status(200).send({
+          estado: "OK",
+          msg: "Enviando a registro...",
+          url: "/Signup",
+          cedula: c.cedula
+        })
+      }
+      
+    } else {
+      return res.status(401).send({ 
+        estado: "error", 
+        msg: "Cedula inexistente",
+      });
+    }
   } catch (error) {
     return res
       .status(401)

@@ -6,6 +6,7 @@ const serviciosApi = Router();
 
 serviciosApi.post("/servicioRegistro", async function(req, res){
     try{
+        console.log("------------------")
         console.log("SERVICIO REGISTRO")
         const { cedula } = req.body
         //Consulto si ya existe una cedula registrada en registroModel
@@ -27,22 +28,34 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
                 rol: "cliente",
                 estado: "0"      
             }
-            
-            const s = new registroModel(dataS);
-            s.save(function(error){
-                console.log("entro a error de servicio")
-            });
+             
+            try {
 
-            const u = new usuariosModel(dataU);
-            u.save(function(error){
-                console.log("entró a error de usuarios model")
+                const s = new registroModel(dataS);
+                s.save(function(error){
+                    console.log("entro a error de servicio")
+                });
+    
+                const u = new usuariosModel(dataU);
+                u.save(function(error){
+                    console.log("entró a error de usuarios model")
+                });
 
-            })
-
-            
+                return res.status(200).send({
+                    estado: "OK",
+                    msg: "Registro exitoso"
+                });
+                
+            } catch (error) {
+                
+                return res.status(501).send({
+                    estatus: "error",
+                    msg: "Error del servidor"
+                })
+            }
 
         } else {//Ya existia la cedula
-            console.warn("NUEVO SERVICIO MISMA CEDULA:")
+            console.warn("NUEVO SERVICIO MISMA CEDULA")
 
             //Asignar a variable el valor del ultimo ID servicio concatenado con la nueva suma de su ultimo fragmento
             const ultimoRegistro = await registroModel.find({ cedula }).sort({_id:-1}).limit(1);
@@ -64,7 +77,7 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
                     })
                 } 
                 return res.status(200).send({
-                    estado: "error",
+                    estado: "OK",
                     msg: "usuario guardado"
                 })
             })
