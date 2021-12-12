@@ -7,6 +7,8 @@ const { validacionApi } = require("./rutas/Validacion/validacionApi");
 const { serviciosApi } = require("./rutas/ServiciosRegistro/serviciosApi");
 const { usuariosApi } = require("./rutas/ServiciosRegistro/usuariosApi");
 const { loginApi } = require("./rutas/Login/loginApi");
+const { gestionCedulaApi } = require("./rutas/ServiciosGestion/gestionCedulaApi");
+const { gestionServicioApi } = require("./rutas/ServiciosGestion/gestionServicioApi");
 
 app.use(cors()); //Middleware cors
 app.use(express.json()); //Middleware json()
@@ -21,6 +23,8 @@ app.use("", serviciosApi); //Registro
 app.use("", usuariosApi); //Busqueda cedula
 app.use("", signupApi);
 app.use("", loginApi);
+app.use("", gestionCedulaApi);
+app.use("", gestionServicioApi);
 
 //conectarnos a mongoDb
 mongoose
