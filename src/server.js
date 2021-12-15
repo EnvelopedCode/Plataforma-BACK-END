@@ -13,6 +13,7 @@ const { usuariosGestionApi } = require("./rutas/usuariosGestion/usuariosGestionA
 const { eliminarApi } = require("./rutas/usuariosGestion/eliminarApi");
 const { parametrizacionApi } = require("./rutas/Parametrizacion/parametrizacionApi");
 const { gInspeccionApi } = require("./rutas/Inspeccion/gInspeccionApi")
+const { updateServicioApi } = require("./rutas/ServiciosGestion/updateServicioApi");
 require("dotenv").config();
 
 app.use(cors()); //Middleware cors
@@ -34,6 +35,7 @@ app.use("", usuariosGestionApi);
 app.use("", eliminarApi);
 app.use("", parametrizacionApi);
 app.use("", gInspeccionApi);
+app.use("", updateServicioApi);
 
 //conectarnos a mongoDb
 mongoose
