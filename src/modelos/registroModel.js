@@ -48,9 +48,9 @@ const registroSchema = new Schema({
   //   type: "string",
   //   required: true
   // }
-
-
 });
+
+
 
 const Model = mongoose.model("servicio", registroSchema);
 exports.registroModel = Model;
