@@ -29,7 +29,7 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
                 estado: "0"      
             }
 
-            const dataM = {
+            const dataM = { //Primera medida para primer servicio de cedula nueva
                 servicio: dataS["servicio"],
                 lectura: "0",
                 fechaLectura: req.body.fecha,
@@ -83,7 +83,8 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
             dataS["servicio"] = incrementador
             
             //Enviar data a new
-            const dataM = {
+            const dataM = { //Primera medida para primer servicio de una cedula ya existente
+
                 servicio: dataS["servicio"],
                 lectura: "0",
                 fechaLectura: req.body.fecha,

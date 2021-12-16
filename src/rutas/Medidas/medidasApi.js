@@ -4,13 +4,11 @@ const medidasApi = Router();
 
 medidasApi.post("/medidasServicio", async function(req, res){
 
-    console.log("Entro a REGISTRAR la medida")
+    console.log("Entro a REGISTRAR la medida")// Creamos medida de un servicio ya existente
 
     try {
         const data = req.body
-
         const servicio = data.servicio
-
         const c = await medidasModel.find({ servicio, estado: "PAGADA" }).sort({_id:-1}).limit(1);
 
         console.log(c)
