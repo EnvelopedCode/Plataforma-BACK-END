@@ -1,6 +1,8 @@
 const {Router} = require("express");
 const { registroModel } = require("../../modelos/registroModel");
 const { usuariosModel } = require("../../modelos/usuariosModel");
+const { medidasModel } = require("../../modelos/medidasModel");
+
 const serviciosApi = Router();
 
 
@@ -11,14 +13,12 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
         const { cedula } = req.body
         //Consulto si ya existe una cedula registrada en registroModel
         const c = await usuariosModel.findOne({ cedula });
-        console.warn(c)
         
         if(c === null) { //No existia la cedula
 
             //VOy a registrar un servicio y un usuario nuevo SIN contraseña y con estado 0 y rol cliente
             const dataS = req.body;
             dataS["servicio"] = dataS["cedula"]+"-"+"1"
-            console.warn(dataS)
 
             const dataU = {     
                 cedula: dataS.cedula,
@@ -28,18 +28,34 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
                 rol: "cliente",
                 estado: "0"      
             }
+
+            const dataM = {
+                servicio: dataS["servicio"],
+                lectura: "0",
+                fechaLectura: req.body.fecha,
+                consumo: "0",
+                unidad: "mc",
+                anomalia: "Sin anomalias",
+                estado: "PAGADA"
+            }
              
             try {
 
                 const s = new registroModel(dataS);
                 s.save(function(error){
-                    console.log("entro a error de servicio")
+                    console.log("entro a error de servicio model")
                 });
     
                 const u = new usuariosModel(dataU);
                 u.save(function(error){
                     console.log("entró a error de usuarios model")
                 });
+
+                const m = new medidasModel(dataM);
+                m.save(function(error){
+                    console.log("entro a error de medidas model")
+                })
+
 
                 return res.status(200).send({
                     estado: "OK",
@@ -63,10 +79,25 @@ serviciosApi.post("/servicioRegistro", async function(req, res){
             const incrementador = ultimoServicio[0]+"-"+String(parseInt(ultimoServicio[1])+1)
 
             //Asignar esa variable devuelta a data
-            dataS = req.body
+            const dataS = req.body
             dataS["servicio"] = incrementador
             
             //Enviar data a new
+            const dataM = {
+                servicio: dataS["servicio"],
+                lectura: "0",
+                fechaLectura: req.body.fecha,
+                consumo: "0",
+                unidad: "mc",
+                anomalia: "Sin anomalias",
+                estado: "PAGADA"
+            }
+
+            const m = new medidasModel(dataM);
+            m.save(function(error){
+                console.log("entro a error de medidas model")
+            })
+
             const registro = await new registroModel(dataS)
             
             registro.save(function(error){
