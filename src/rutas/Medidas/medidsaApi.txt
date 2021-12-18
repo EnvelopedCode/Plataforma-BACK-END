@@ -1,0 +1,104 @@
+        const data = req.body
+        const servicio = data.servicio
+        const dia = data.dia
+        const mes = data.mes
+        const year = data.año
+        const fecha = data.fechaLectura
+        const feFac = data.fechaFactura
+        const c = await medidasModel.find({ servicio, estado: "PAGADA" }).sort({_id:-1}).limit(1);
+
+        const conResultado = parseInt(data.lectura)-parseInt(c[0].lectura)
+
+        const f = await medidasModel.find({ 
+            servicio, 
+            $or:[ 
+                {fechaLectura: `${year}-${mes}-01`}, 
+                {fechaLectura: `${year}-${mes}-02`}, 
+                {fechaLectura: `${year}-${mes}-03`}, 
+                {fechaLectura: `${year}-${mes}-04`},
+                {fechaLectura: `${year}-${mes}-05`}, 
+                {fechaLectura: `${year}-${mes}-06`}, 
+                {fechaLectura: `${year}-${mes}-07`}, 
+                {fechaLectura: `${year}-${mes}-08`}, 
+                {fechaLectura: `${year}-${mes}-09`}, 
+                {fechaLectura: `${year}-${mes}-10`}, 
+                {fechaLectura: `${year}-${mes}-11`}, 
+                {fechaLectura: `${year}-${mes}-12`}, 
+                {fechaLectura: `${year}-${mes}-13`}, 
+                {fechaLectura: `${year}-${mes}-14`}, 
+                {fechaLectura: `${year}-${mes}-15`}, 
+                {fechaLectura: `${year}-${mes}-16`},
+                {fechaLectura: `${year}-${mes}-17`}, 
+                {fechaLectura: `${year}-${mes}-18`}, 
+                {fechaLectura: `${year}-${mes}-19`}, 
+                {fechaLectura: `${year}-${mes}-20`},
+                {fechaLectura: `${year}-${mes}-21`}, 
+                {fechaLectura: `${year}-${mes}-22`}, 
+                {fechaLectura: `${year}-${mes}-23`}, 
+                {fechaLectura: `${year}-${mes}-24`}, 
+                {fechaLectura: `${year}-${mes}-25`}, 
+                {fechaLectura: `${year}-${mes}-26`}, 
+                {fechaLectura: `${year}-${mes}-27`}, 
+                {fechaLectura: `${year}-${mes}-28`}, 
+                {fechaLectura: `${year}-${mes}-29`}, 
+                {fechaLectura: `${year}-${mes}-30`}, 
+                {fechaLectura: `${year}-${mes}-31`}    
+            ]
+        })
+
+        console.log(f)
+
+        if(f.length > 0){
+            console.log("Encontro medidas en el mes actual")
+            return res.status(400).send({
+                estado: "error",
+                msg: "Ya se ingreso una medida este mes"
+            })
+        } else if(f.length == 0){
+            console.log("La medida es nueva, no encontro mas en el mes")
+            console.log(feFac)
+            facturacion= new Date(feFac)
+
+            let rango = []
+            let flag = false;
+
+            for(let indice = 0; indice < 5; indice++){ //Calcula 5 dias atras de la facturacion
+                facturacion.setDate(facturacion.getDate()-1); 
+                let resultado = facturacion.getDate(); 
+                rango.push(resultado)}
+
+            for(let indice in rango){ //Busca el dia actual en ese rango
+                if(dia == rango[indice]){
+                    flag = true;
+                }
+            }
+
+            if(flag === true){//La medida se encuentra en el rango de dias
+
+                console.log("NO encontro medidas en el mes actual")
+                const dataM = {     
+                    servicio: data.servicio,
+                    lectura: data.lectura,
+                    fechaLectura: data.fechaLectura,
+                    consumo: conResultado,  //Esto se calcula
+                    unidad: data.unidad,
+                    anomalia: data.anomalia
+                }
+    
+                const m = new medidasModel(dataM);
+                m.save(function(error){
+                console.log("entró a error de Medidas model")
+                });
+    
+                return res.status(200).send({
+                    estado: "OK",
+                    msg: "Registro exitoso"
+                });
+
+            }else{ //Hice una medida en un dia fuera de rango
+                console.log("Hice una medida en un dia fuera de rango")
+                return res.status(400).send({
+                    estado: "error",
+                    msg: "Esta medida esta fuera de las fechas del rango"
+                })
+            }

@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { medidasModel } = require("../../modelos/medidasModel")
+const { registroModel } = require("../../modelos/registroModel");
 const validarMedidaApi = Router();
 
 validarMedidaApi.post("/validarMedida", async function(req, res){
@@ -11,10 +12,12 @@ validarMedidaApi.post("/validarMedida", async function(req, res){
         const { servicio } = req.body
 
         const s = await medidasModel.find({ servicio })
-        if(s.length > 0){
+        const f = await registroModel.findOne({ servicio })
+        if(s.length > 0 && f){
             return res.status(200).send({
                 estado: "OK",
-                busqueda: s
+                busqueda: s,
+                fecha: f.fecha
             })
         } else {
             return res.status(400).send({

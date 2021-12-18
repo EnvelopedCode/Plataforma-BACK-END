@@ -5,7 +5,6 @@ const { medidasModel } = require("../../modelos/medidasModel");
 
 const serviciosApi = Router();
 
-
 serviciosApi.post("/servicioRegistro", async function(req, res){
     try{
         console.log("------------------")

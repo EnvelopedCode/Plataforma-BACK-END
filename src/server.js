@@ -16,6 +16,9 @@ const { gInspeccionApi } = require("./rutas/Inspeccion/gInspeccionApi")
 const { updateServicioApi } = require("./rutas/ServiciosGestion/updateServicioApi");
 const { medidasApi } = require("./rutas/Medidas/medidasApi");
 const { validarMedidaApi } = require("./rutas/Medidas/validarMedidaApi");
+const { facServicioApi } = require("./rutas/Facturacion/facServicioApi");
+const { busquedaApi } = require("./rutas/Medidas/busquedaApi");
+const { fechaValidarApi } = require("./rutas/Medidas/fechaValidarApi");
 require("dotenv").config();
 
 app.use(cors()); //Middleware cors
@@ -40,6 +43,9 @@ app.use("", gInspeccionApi);
 app.use("", updateServicioApi);
 app.use("", medidasApi);
 app.use("", validarMedidaApi);
+app.use("", facServicioApi);
+app.use("", busquedaApi);
+app.use("", fechaValidarApi);
 
 //conectarnos a mongoDb
 mongoose
