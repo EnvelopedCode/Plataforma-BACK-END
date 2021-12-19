@@ -2,26 +2,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const inspeccionSchema = new Schema({
-    tecnico: {
-        type: "string",
-        required: true
-    },
     servicio: {
         type: "string",
         required: true
     },
-    cedula: {
+    tecnico: {
         type: "string",
         required: true
     },
-    nombre: {
-        type: "string",
-        required: true
-    },
-    direccion: {
-        type: "string",
-        required: true
-    },
+
+    // cedula: {
+    //     type: "string",
+    //     required: true
+    // },
+    // nombre: {
+    //     type: "string",
+    //     required: true
+    // },
+    // direccion: {
+    //     type: "string",
+    //     required: true
+    // },
     fecha: {
         type: "string",
         required: true
@@ -32,5 +33,5 @@ const inspeccionSchema = new Schema({
     }
 });
 
-const Model = mongoose.model("inspeccion", inspeccionSchema);
+const Model = mongoose.model("inspeccione", inspeccionSchema);
 exports.inspeccionModel = Model;

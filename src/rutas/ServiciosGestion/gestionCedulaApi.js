@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { usuariosModel } = require("../../modelos/usuariosModel");
 const gestionCedulaApi = Router();
 
+
 gestionCedulaApi.post("/gestionCedula", async function(req, res){
     try {
         console.log("ENTRO A GESTION CEDULA")

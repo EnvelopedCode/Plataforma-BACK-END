@@ -2,19 +2,19 @@ const { Router } = require("express");
 const { registroModel } = require("../../modelos/registroModel");
 const facServiciosApi = Router();
 
-facServiciosApi.post("/facServicio", async function(req, res){
+facServiciosApi.post("/facServicios", async function(req, res){
 
     console.log("ENTRO FAC SERVICIO")
 
     try {
         const data = req.body;
-        const cedula = data.cedula;
-        const c = await registroModel.find({ cedula });
-        console.log(c)
-        if(c){
+        const cedula = data.cedula
+        const s = await registroModel.find({ cedula })
+        console.log(s)
+        if(s){
             return res.status(200).send({
                 estado: "OK",
-                servicio: c
+                servicios: s
             })
 
         } else {

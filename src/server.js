@@ -16,9 +16,15 @@ const { gInspeccionApi } = require("./rutas/Inspeccion/gInspeccionApi")
 const { updateServicioApi } = require("./rutas/ServiciosGestion/updateServicioApi");
 const { medidasApi } = require("./rutas/Medidas/medidasApi");
 const { validarMedidaApi } = require("./rutas/Medidas/validarMedidaApi");
-const { facServicioApi } = require("./rutas/Facturacion/facServicioApi");
+const { facServiciosApi } = require("./rutas/Facturacion/facServiciosApi");
+const { facDataApi } = require("./rutas/Facturacion/facDataApi")
 const { busquedaApi } = require("./rutas/Medidas/busquedaApi");
 const { fechaValidarApi } = require("./rutas/Medidas/fechaValidarApi");
+const { facInfoApi } = require("./rutas/Facturacion/facInfoApi");
+const { validarServicioApi }  = require("./rutas/Inspeccion/validarServicioApi");
+const { facLecturasApi } = require("./rutas/Facturacion/facLecturasApi");
+const { validarTecnicoApi } = require("./rutas/Inspeccion/validarTecnicoApi")
+
 require("dotenv").config();
 
 app.use(cors()); //Middleware cors
@@ -43,10 +49,14 @@ app.use("", gInspeccionApi);
 app.use("", updateServicioApi);
 app.use("", medidasApi);
 app.use("", validarMedidaApi);
-app.use("", facServicioApi);
+app.use("", facServiciosApi);
 app.use("", busquedaApi);
 app.use("", fechaValidarApi);
-
+app.use("", facDataApi);
+app.use("", facInfoApi);
+app.use("", validarServicioApi);
+app.use("", facLecturasApi);
+app.use("", validarTecnicoApi);
 //conectarnos a mongoDb
 mongoose
   .connect(process.env.SERVER_DB_URL)

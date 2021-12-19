@@ -1,31 +1,24 @@
 const { Router } = require("express");
-const { registroModel } = require("../../modelos/registroModel");
+// const { registroModel } = require("../../modelos/registroModel");
+const { inspeccionModel } = require("../../modelos/inspeccionModel")
 const gInspeccionApi = Router();
 
-gInspeccionApi.post("/BuscarInspeccion", async function (req, res) {
-
-  //Aqui busca el servicio nada mas
-
+gInspeccionApi.post("/generacionInspeccion", async function (req, res) {
+  console.log(" entró a generacion de Inspeccion")
   try {
-
     const data = req.body;
-    const servicio = data.servicio;
-    const s = await registroModel.find({ servicio });
-
-    if (s.length > 0) {
-      return res.status(200).send({
-        estado: "ok",
-        msg: "servicio listo para asignar",
-      });
-
-    } else if(s.length < 1){  
-      return res.status(400).send({
-        estado: "error",
-        msg: "servicio no encontrado",
-      });
-    }
-
+    console.warn(data)
+    const r =  await new inspeccionModel(data)
+    console.warn(r)
+    r.save(function(error){
+      if(error){
+        res.send({estado: "error", msg: "ERROR: producto NO guardado" })
+        return false
+      }
+      res.send({estado: "ok", msg: "guardado satisfactoriamente"})
+    })
   } catch (error) {
+      return res.status(401).send({ estado: "error", msg: "no valido", error });
     
   }
 });

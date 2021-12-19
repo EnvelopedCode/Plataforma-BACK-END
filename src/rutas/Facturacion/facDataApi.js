@@ -1,20 +1,23 @@
 const { Router } = require("express");
 const { registroModel } = require("../../modelos/registroModel");
-const facServicioApi = Router();
+const { usuariosModel } = require("../../modelos/usuariosModel");
+const facDataApi = Router();
 
-facServicioApi.post("/facServicio", async function(req, res){
+facDataApi.post("/facData", async function(req, res){
 
     console.log("ENTRO FAC SERVICIO")
 
     try {
         const data = req.body;
-        const servicio = data.servicio;
-        const c = await registroModel.find({ servicio }).sort({_id:1}).limit(1);
+        const cedula = data.cedula;
+        console.log(cedula)
+        const c = await usuariosModel.findOne({ cedula });
         console.log(c)
         if(c){
             return res.status(200).send({
                 estado: "OK",
-                fecha: c[0].fecha
+                nombre: c.nombre,
+                apellido: c.apellido
             })
 
         } else {
@@ -30,4 +33,4 @@ facServicioApi.post("/facServicio", async function(req, res){
     }
 })
 
-exports.facServicioApi = facServicioApi;
+exports.facDataApi = facDataApi;
