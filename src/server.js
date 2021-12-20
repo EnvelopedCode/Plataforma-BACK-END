@@ -25,6 +25,8 @@ const { validarServicioApi }  = require("./rutas/Inspeccion/validarServicioApi")
 const { facLecturasApi } = require("./rutas/Facturacion/facLecturasApi");
 const { validarTecnicoApi } = require("./rutas/Inspeccion/validarTecnicoApi")
 const { tablaInspeccionApi } = require ("./rutas/Inspeccion/tablaInspeccionApi");
+const { facItinerarioApi } = require("./rutas/Facturacion/facItinerarioApi");
+const { facProximosApi } = require("./rutas/Facturacion/facProximosApi");
 
 require("dotenv").config();
 
@@ -59,6 +61,9 @@ app.use("", validarServicioApi);
 app.use("", facLecturasApi);
 app.use("", validarTecnicoApi);
 app.use("", tablaInspeccionApi);
+app.use("", facItinerarioApi);
+app.use("", facProximosApi);
+
 //conectarnos a mongoDb
 mongoose
   .connect(process.env.SERVER_DB_URL)
