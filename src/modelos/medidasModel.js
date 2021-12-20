@@ -28,7 +28,13 @@ const medidasSchema = new Schema({
     },
     estado: {
         type: "string",
-        default: "SIN PAGAR"
+        default: "SIN PAGAR",
+        required: true
+    },
+    valor: {
+        type: "string",
+        default: "$0",
+        required: true
     }
 });
 

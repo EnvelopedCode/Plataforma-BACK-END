@@ -24,7 +24,8 @@ facLecturasApi.post("/facLecturas", async function(req, res){
             lectura.push(c[indice].unidad); //4
             lectura.push(c[indice].anomalia); //5
             lectura.push(c[indice].estado); //6
-            lecturas.push(lectura); //7
+            lectura.push(c[indice].valor) //7
+            lecturas.push(lectura);
 
         }
 

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-// const { registroModel } = require("../../modelos/registroModel");
+const { registroModel } = require("../../modelos/registroModel");
 const { inspeccionModel } = require("../../modelos/inspeccionModel")
 const gInspeccionApi = Router();
 

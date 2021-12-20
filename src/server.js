@@ -12,7 +12,7 @@ const { gestionServicioApi } = require("./rutas/ServiciosGestion/gestionServicio
 const { usuariosGestionApi } = require("./rutas/usuariosGestion/usuariosGestionApi");
 const { eliminarApi } = require("./rutas/usuariosGestion/eliminarApi");
 const { parametrizacionApi } = require("./rutas/Parametrizacion/parametrizacionApi");
-const { gInspeccionApi } = require("./rutas/Inspeccion/gInspeccionApi")
+const { gInspeccionApi } = require("./rutas/Inspeccion/gInspeccionApi");
 const { updateServicioApi } = require("./rutas/ServiciosGestion/updateServicioApi");
 const { medidasApi } = require("./rutas/Medidas/medidasApi");
 const { validarMedidaApi } = require("./rutas/Medidas/validarMedidaApi");
@@ -24,6 +24,7 @@ const { facInfoApi } = require("./rutas/Facturacion/facInfoApi");
 const { validarServicioApi }  = require("./rutas/Inspeccion/validarServicioApi");
 const { facLecturasApi } = require("./rutas/Facturacion/facLecturasApi");
 const { validarTecnicoApi } = require("./rutas/Inspeccion/validarTecnicoApi")
+const { tablaInspeccionApi } = require ("./rutas/Inspeccion/tablaInspeccionApi");
 
 require("dotenv").config();
 
@@ -57,6 +58,7 @@ app.use("", facInfoApi);
 app.use("", validarServicioApi);
 app.use("", facLecturasApi);
 app.use("", validarTecnicoApi);
+app.use("", tablaInspeccionApi);
 //conectarnos a mongoDb
 mongoose
   .connect(process.env.SERVER_DB_URL)
