@@ -27,8 +27,8 @@ facItinerarioApi.post("/facItinerario", async function(req, res){
             let fechaFacD = new Date(fechaFac)
             let fechaDia = fechaFacD.getDate()+1;
 
-            console.log(fechaDia)
-            console.log(dia)
+            // console.log(fechaDia)
+            // console.log(dia)
 
             if(fechaDia == dia){ //Si el dia de facturacion de este servicio coincide con hoy
                 console.log(true)

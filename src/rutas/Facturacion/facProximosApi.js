@@ -14,11 +14,12 @@ facProximosApi.post("/facProximos", async function(req, res){
 
         for(let indice in s){
 
-            //NOTA DISEÑO: el coje la ultima lectura tomada (la fecha) de ese servicio y le suma un mes y calcula la diferencia que hay entre esa proxima lectura y la fecha de hoy, si la diferencia es menor que 7 la medida se muestra
-            const m = await medidasModel.find({ servicio: s[indice].servicio }).sort({_id:-1}).limit(1)
+            //NOTA DISEÑO: el coje el dia de facturacion y coje el dia de hoy, se restan para tomar sus diferencias, si el resultado es negativo significa que el dia de facturacion ya paso y hay que esperar a que el dia de Hoy este por debajo de el dia de facturacion
+            
             //Traerse la ultima lectura y sumarle 1 al mes, esa sera la FechaFactura
-            let fechaFactura = m[0].fechaLectura
+            let fechaFactura = s[indice].fecha
             let fechaPrototipo = new Date(fechaFactura)
+            
             let mes = fechaPrototipo.getMonth()+1
             let dia = fechaPrototipo.getDate()+1
             let year = fechaPrototipo.getFullYear()
@@ -31,17 +32,18 @@ facProximosApi.post("/facProximos", async function(req, res){
 
             let fechaProximaS = mes + "-" + dia + "-" + year
             let fechaProximaD = new Date(fechaProximaS)
+            let proximaDia = fechaProximaD.getDate();
 
 
             //Calcular si el dia de hoy puedo mostrar
             const fechaActual = new Date()
-            const resultado = Math.floor((fechaProximaD - fechaActual) / (1000*60*60*24))
-            console.log(fechaProximaD)
-            console.log(fechaActual)
-            console.log(resultado)
+            const diaActual = fechaActual.getDate();
+
+            // const resultado = Math.floor((proximaDia - diaActual) / (1000*60*60*24))
+            const resultado = proximaDia - diaActual 
 
 
-            if(resultado < 7){
+            if(resultado >= 0 && resultado < 7){
                 //Armar medida y pushearla a la lista principal
 
                 let medida = {
