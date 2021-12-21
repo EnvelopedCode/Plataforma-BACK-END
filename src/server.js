@@ -32,6 +32,9 @@ const { perfilConfirmarApi } = require("./rutas/Perfil/perfilConfirmarApi");
 const { perfilPassApi } = require("./rutas/Perfil/perfilPassApi");
 const { facSinPagarApi } = require("./rutas/Facturacion/facSinPagarApi");
 const { facPagadasApi } = require("./rutas/Facturacion/facPagadasApi");
+const { facPagarApi } = require("./rutas/Facturacion/facPagarApi");
+const { perfilDataApi } = require("./rutas/Perfil/perfilDataApi");
+const { perfilEliminarApi } = require("./rutas/Perfil/perfilEliminarApi");
 
 require("dotenv").config();
 
@@ -73,6 +76,9 @@ app.use("", perfilConfirmarApi);
 app.use("", perfilPassApi);
 app.use("", facSinPagarApi);
 app.use("", facPagadasApi);
+app.use("", facPagarApi);
+app.use("", perfilDataApi);
+app.use("", perfilEliminarApi);
 
 //conectarnos a mongoDb
 mongoose
