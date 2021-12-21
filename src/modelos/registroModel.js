@@ -44,10 +44,6 @@ const registroSchema = new Schema({
     required: true,
     unique: true
   }
-  // diaFacturacion: {
-  //   type: "string",
-  //   required: true
-  // }
 });
 
 

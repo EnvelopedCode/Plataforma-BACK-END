@@ -20,7 +20,9 @@ validacionApi.post("/validacion", async function (req, res) {
           estado: "OK",
           msg: "Enviando a login...",
           url: "/Login",
-          cedula: c.cedula
+          cedula: c.cedula,
+          nombre: c.nombre,
+          apellido: c.apellido
         })
         
       } else { //Cedula sin contraseña

@@ -27,6 +27,11 @@ const { validarTecnicoApi } = require("./rutas/Inspeccion/validarTecnicoApi")
 const { tablaInspeccionApi } = require ("./rutas/Inspeccion/tablaInspeccionApi");
 const { facItinerarioApi } = require("./rutas/Facturacion/facItinerarioApi");
 const { facProximosApi } = require("./rutas/Facturacion/facProximosApi");
+const { perfilGestionApi } = require("./rutas/Perfil/perfilGestionApi");
+const { perfilConfirmarApi } = require("./rutas/Perfil/perfilConfirmarApi");
+const { perfilPassApi } = require("./rutas/Perfil/perfilPassApi");
+const { facSinPagarApi } = require("./rutas/Facturacion/facSinPagarApi");
+const { facPagadasApi } = require("./rutas/Facturacion/facPagadasApi");
 
 require("dotenv").config();
 
@@ -63,6 +68,11 @@ app.use("", validarTecnicoApi);
 app.use("", tablaInspeccionApi);
 app.use("", facItinerarioApi);
 app.use("", facProximosApi);
+app.use("", perfilGestionApi);
+app.use("", perfilConfirmarApi);
+app.use("", perfilPassApi);
+app.use("", facSinPagarApi);
+app.use("", facPagadasApi);
 
 //conectarnos a mongoDb
 mongoose

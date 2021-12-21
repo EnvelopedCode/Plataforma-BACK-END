@@ -10,19 +10,6 @@ const inspeccionSchema = new Schema({
         type: "string",
         required: true
     },
-
-    // cedula: {
-    //     type: "string",
-    //     required: true
-    // },
-    // nombre: {
-    //     type: "string",
-    //     required: true
-    // },
-    // direccion: {
-    //     type: "string",
-    //     required: true
-    // },
     fecha: {
         type: "string",
         required: true

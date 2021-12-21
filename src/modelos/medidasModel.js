@@ -14,7 +14,7 @@ const medidasSchema = new Schema({
         type: "string",
         required: true
     },
-    consumo: { //Evaluar
+    consumo: { 
         type: "string",
         required: true
     },

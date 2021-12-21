@@ -8,11 +8,14 @@ signupApi.post("/signup", async function (req, res) {
   try {
     // const { cedula, contrasena } = req.body;
     const data = req.body;
-    console.log("lo que me traigo del front");
-    console.warn(data);
+    console.log("EVALUAR")
+    console.log(data);
 
     const { cedula } = req.body;
     const c = await usuariosModel.findOne({ cedula });
+
+    console.log(c)
+    console.log("EVALUAR")
 
     const nuevo = Object.assign(c, data);
     console.log("esto es el nuevo")

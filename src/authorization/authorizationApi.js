@@ -2,7 +2,6 @@ const { verify } = require("jsonwebtoken");
 
 const authorizationApi = (req, res, next) => {
   const authorization = req.headers.authorization;
-//   console.log("authorization");
   console.warn(authorization);
   if (!authorization) {
     return res.status(403).json({ estado: "error", msg: "NO AUTORIZADO no trajo autorizacion" });
